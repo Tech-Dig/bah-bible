@@ -1,0 +1,29 @@
+name: Deploy to Firebase Hosting
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        working-directory: apps/web
+        run: npm ci
+
+      - name: Build + Export
+        working-directory: apps/web
+        run: npm run build
+
+      - name: Install Firebase CLI
+        run: npm i -g firebase-tools
+
+      - name: Deploy (Hosting + Rules)
+        run: firebase deploy --only hosting,firestore:rules,storage:rules --token "${{ secrets.FIREBASE_TOKEN }}"

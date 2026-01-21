@@ -1,0 +1,130 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function userRef() {
+      return /databases/$(database)/documents/users/$(request.auth.uid);
+    }
+
+    function userDoc() {
+      return get(userRef());
+    }
+
+    function userExistsAndActive() {
+      return signedIn()
+        && exists(userRef())
+        && userDoc().data.status == "active";
+    }
+
+    function roleLevel() {
+      return userDoc().data.roleLevel;
+    }
+
+    function hasSection(sectionId) {
+      return sectionId in userDoc().data.sections;
+    }
+
+    function canReadContent(sectionId, minRoleLevel) {
+      return userExistsAndActive()
+        && roleLevel() >= minRoleLevel
+        && hasSection(sectionId);
+    }
+
+    function canWriteAs(minRoleLevel) {
+      return userExistsAndActive() && roleLevel() >= minRoleLevel;
+    }
+
+    // USERS: Only Admin+ can manage users
+    match /users/{uid} {
+      allow read: if userExistsAndActive()
+        && (request.auth.uid == uid || roleLevel() >= 50);
+
+      allow create, update: if canWriteAs(50);
+
+      allow delete: if canWriteAs(60); // Director only
+    }
+
+    // SECTIONS: readable by users who have that section
+    match /sections/{sectionId} {
+      allow read: if userExistsAndActive() && hasSection(sectionId);
+      allow write: if canWriteAs(50);
+    }
+
+    // PAGES (wiki pages)
+    match /pages/{pageId} {
+      allow read: if canReadContent(resource.data.sectionId, resource.data.minRoleLevel)
+                  && resource.data.status != "archived";
+
+      allow create: if canWriteAs(40) && canReadContent(request.resource.data.sectionId, 10);
+      allow update: if canWriteAs(40) && canReadContent(resource.data.sectionId, 10);
+
+      allow delete: if canWriteAs(50);
+    }
+
+    // DOCUMENTS (metadata; actual files in Storage)
+    match /documents/{docId} {
+      allow read: if canReadContent(resource.data.sectionId, resource.data.minRoleLevel)
+                  && resource.data.status != "archived";
+
+      allow create: if canWriteAs(40) && canReadContent(request.resource.data.sectionId, 10);
+      allow update: if canWriteAs(40) && canReadContent(resource.data.sectionId, 10);
+
+      allow delete: if canWriteAs(50);
+    }
+
+    // ACADEMY MODULES
+    match /modules/{moduleId} {
+      allow read: if canReadContent(resource.data.sectionId, resource.data.minRoleLevel)
+                  && resource.data.status != "archived";
+
+      allow create, update: if canWriteAs(40);
+      allow delete: if canWriteAs(50);
+    }
+
+    // LESSONS
+    match /lessons/{lessonId} {
+      allow read: if canReadContent(resource.data.sectionId, resource.data.minRoleLevel)
+                  && resource.data.status != "archived";
+
+      allow create, update: if canWriteAs(40);
+      allow delete: if canWriteAs(50);
+    }
+
+    // QUIZZES
+    match /quizzes/{quizId} {
+      allow read: if canReadContent(resource.data.sectionId, resource.data.minRoleLevel)
+                  && resource.data.status != "archived";
+
+      allow create, update: if canWriteAs(40);
+      allow delete: if canWriteAs(50);
+    }
+
+    // PROGRESS: each user writes their own; managers can read
+    match /progress/{uid} {
+      allow read: if userExistsAndActive()
+        && (request.auth.uid == uid || roleLevel() >= 40);
+
+      allow write: if userExistsAndActive() && request.auth.uid == uid;
+
+      allow delete: if canWriteAs(50);
+    }
+
+    // ANNOUNCEMENTS
+    match /announcements/{id} {
+      allow read: if userExistsAndActive();
+      allow create, update: if canWriteAs(40);
+      allow delete: if canWriteAs(50);
+    }
+
+    // ACKNOWLEDGEMENTS
+    match /acknowledgements/{id} {
+      allow read: if userExistsAndActive();
+      allow create: if userExistsAndActive() && request.resource.data.uid == request.auth.uid;
+      allow delete: if canWriteAs(50);
+    }
+  }
+}
