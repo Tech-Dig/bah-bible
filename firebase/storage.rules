@@ -1,50 +1,9 @@
 rules_version = '2';
+
 service firebase.storage {
   match /b/{bucket}/o {
-
-    function signedIn() {
-      return request.auth != null;
-    }
-
-    function userDoc() {
-      return firestore.get(/databases/(default)/documents/users/$(request.auth.uid));
-    }
-
-    function userActive() {
-      return signedIn()
-        && firestore.exists(/databases/(default)/documents/users/$(request.auth.uid))
-        && userDoc().data.status == "active";
-    }
-
-    function roleLevel() {
-      return userDoc().data.roleLevel;
-    }
-
-    function hasSection(sectionId) {
-      return sectionId in userDoc().data.sections;
-    }
-
-    // docs/{docId}/{filename}
-    match /docs/{docId}/{fileName} {
-      function docMeta() {
-        return firestore.get(/databases/(default)/documents/documents/$(docId));
-      }
-
-      allow read: if userActive()
-        && hasSection(docMeta().data.sectionId)
-        && roleLevel() >= docMeta().data.minRoleLevel
-        && docMeta().data.status != "archived";
-
-      // manager+ can upload but only to their own sections
-      allow write: if userActive()
-        && roleLevel() >= 40
-        && hasSection(docMeta().data.sectionId);
-    }
-
-    // images (general)
-    match /images/{allPaths=**} {
-      allow read: if userActive();
-      allow write: if userActive() && roleLevel() >= 40;
+    match /{allPaths=**} {
+      allow read, write: if false;
     }
   }
 }

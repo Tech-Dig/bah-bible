@@ -1,0 +1,103 @@
+[debug] [2026-01-21T19:09:19.309Z] ----------------------------------------------------------------------
+[debug] [2026-01-21T19:09:19.311Z] Command:       /nix/store/ixbb20farqh1f4fqbmsn6b1ixn8mc8ij-nodejs-20.18.1/bin/node /home/user/.global_modules/bin/firebase init firestore
+[debug] [2026-01-21T19:09:19.311Z] CLI Version:   15.3.1
+[debug] [2026-01-21T19:09:19.311Z] Platform:      linux
+[debug] [2026-01-21T19:09:19.311Z] Node Version:  v20.18.1
+[debug] [2026-01-21T19:09:19.311Z] Time:          Wed Jan 21 2026 19:09:19 GMT+0000 (Coordinated Universal Time)
+[debug] [2026-01-21T19:09:19.311Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-21T19:09:20.015Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:20.016Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:20.018Z] >>> [apiv2][query] GET https://monospace-pa.googleapis.com/v1/workspaces/bah-bible-60256519 [none]
+[debug] [2026-01-21T19:09:20.408Z] <<< [apiv2][status] GET https://monospace-pa.googleapis.com/v1/workspaces/bah-bible-60256519 403
+[debug] [2026-01-21T19:09:20.408Z] <<< [apiv2][body] GET https://monospace-pa.googleapis.com/v1/workspaces/bah-bible-60256519 {"error":{"code":403,"message":"User is not authorized on this resource","status":"PERMISSION_DENIED"}}
+[error] Failed to fetch Firebase Project from current Studio Workspace: Request to https://monospace-pa.googleapis.com/v1/workspaces/bah-bible-60256519 had HTTP Error: 403, User is not authorized on this resource
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/user/bah-bible
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2026-01-21T19:09:20.412Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2026-01-21T19:09:20.412Z] > authorizing via signed-in user (info@tech-dig.com)
+[debug] [2026-01-21T19:09:20.412Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:20.412Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:20.412Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/bahbible [none]
+[debug] [2026-01-21T19:09:20.634Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/bahbible 200
+[debug] [2026-01-21T19:09:20.634Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/bahbible {"projectId":"bahbible","projectNumber":"126644338581","displayName":"bahbible","name":"projects/bahbible","resources":{"hostingSite":"bahbible"},"state":"ACTIVE","etag":"1_c08cd1b6-3180-42f1-826d-46fc6c01bdf0"}
+[info] i  Using project bahbible (bahbible) . 
+[info] 
+=== Firestore Setup
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[debug] [2026-01-21T19:09:20.642Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:20.642Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:20.642Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/bahbible/services/firestore.googleapis.com [none]
+[debug] [2026-01-21T19:09:20.642Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/bahbible/services/firestore.googleapis.com x-goog-quota-user=projects/bahbible
+[debug] [2026-01-21T19:09:21.439Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/bahbible/services/firestore.googleapis.com 200
+[debug] [2026-01-21T19:09:21.439Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/bahbible/services/firestore.googleapis.com [omitted]
+[info] ✔  firestore: required API firestore.googleapis.com is enabled 
+[debug] [2026-01-21T19:09:21.443Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:21.443Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:21.444Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/bahbible/databases [none]
+[debug] [2026-01-21T19:09:21.880Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/bahbible/databases 200
+[debug] [2026-01-21T19:09:21.880Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/bahbible/databases {"databases":[{"name":"projects/bahbible/databases/(default)","uid":"c69c6b19-c5ee-4e3b-93a3-2e5c9057b59f","createTime":"2026-01-21T17:08:17.768635Z","updateTime":"2026-01-21T17:08:17.768635Z","locationId":"nam5","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2026-01-21T18:09:21.877950Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"s","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"realtimeUpdatesMode":"REALTIME_UPDATES_MODE_ENABLED","etag":"INTDh8uqnZIDMMHY6K2RnZID"}]}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2026-01-21T19:09:21.882Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:21.882Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:21.882Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/bahbible/releases pageSize=10&pageToken=
+[debug] [2026-01-21T19:09:22.584Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/bahbible/releases 200
+[debug] [2026-01-21T19:09:22.584Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/bahbible/releases {"releases":[{"name":"projects/bahbible/releases/cloud.firestore","rulesetName":"projects/bahbible/rulesets/48b9f8bd-d805-43ed-978b-20fae48d11f9","createTime":"2026-01-21T17:08:21.833466Z","updateTime":"2026-01-21T17:08:21.833466Z"}]}
+[debug] [2026-01-21T19:09:22.584Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:22.584Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:22.584Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/bahbible/rulesets/48b9f8bd-d805-43ed-978b-20fae48d11f9 [none]
+[debug] [2026-01-21T19:09:23.196Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/bahbible/rulesets/48b9f8bd-d805-43ed-978b-20fae48d11f9 200
+[debug] [2026-01-21T19:09:23.196Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/bahbible/rulesets/48b9f8bd-d805-43ed-978b-20fae48d11f9 [omitted]
+[info] i  Downloaded the existing Firestore Security Rules from the Firebase console 
+[info] i  firebase/firestore.rules is unchanged 
+[info] 
+[info] Firestore indexes allow you to perform complex queries while
+[info] maintaining performance that scales with the size of the result
+[info] set. You can keep index definitions in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2026-01-21T19:09:49.738Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:49.739Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:49.739Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:49.739Z] Checked if tokens are valid: true, expires at: 1769025899446
+[debug] [2026-01-21T19:09:49.739Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/bahbible/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2026-01-21T19:09:49.741Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/bahbible/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2026-01-21T19:09:50.469Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/bahbible/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2026-01-21T19:09:50.470Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/bahbible/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/bahbible/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[debug] [2026-01-21T19:09:50.470Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/bahbible/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2026-01-21T19:09:50.470Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/bahbible/databases/(default)/collectionGroups/-/indexes {}
+[info] i  Downloaded the existing Firestore indexes from the Firebase console 
+[info] ✔  Wrote firebase/firestore.rules 
+[debug] [2026-01-21T19:09:50.568Z] Error: EISDIR: illegal operation on a directory, open '/home/user/bah-bible/bah-bible'
+    at Object.writeFileSync (node:fs:2367:20)
+    at Object.createFileSync (/home/user/.global_modules/lib/node_modules/firebase-tools/node_modules/fs-extra/lib/ensure/file.js:63:6)
+    at Config.writeProjectFile (/home/user/.global_modules/lib/node_modules/firebase-tools/lib/config.js:166:12)
+    at Object.actuate (/home/user/.global_modules/lib/node_modules/firebase-tools/lib/init/features/firestore/index.js:88:16)
+    at init (/home/user/.global_modules/lib/node_modules/firebase-tools/lib/init/index.js:89:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Command.initAction [as actionFn] (/home/user/.global_modules/lib/node_modules/firebase-tools/lib/commands/init.js:226:5)
+[error] 
+[error] Error: An unexpected error has occurred.
